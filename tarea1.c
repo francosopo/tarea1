@@ -78,6 +78,6 @@ int obtenerValor(char *str1, char *str2){
 
 int main(int argc, char* argv[]){
     
-    obtenerValor("ananas", "banana");
+    obtenerValor("banana", "ananas");
     return 0;
 }
