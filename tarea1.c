@@ -27,7 +27,8 @@ void destruirMatriz(int **matriz, int n){
 
 /*
 
-    Hipotesis 2.1: Omega(n) y 2n, => Theta(n)
+    Hipotesis 2.1: Omega(n) y 2n, => Theta(n) //tiempo
+    hipotesis de espacio = O(n^2)
 
 */
 
