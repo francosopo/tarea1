@@ -37,7 +37,7 @@ int min(int val1, int val2){
 }
 
 /*
-
+    Algoritmo 1
     Hipotesis 2.1: Omega(n) y 2n, => Theta(n) //tiempo
     hipotesis de espacio = O(n^2)
 
@@ -65,8 +65,9 @@ int obtenerValor(char *str1, char *str2){
         return miValor;
     }
 }
-
-
+     // | diagonal \+1o0| Arriba   | +1|
+     // ---------------------      v
+    //  | Al lado ->+1  |Este          |
 void completeMatrix(int **matrix, char *string1, char *string2){
     //Asumimos que, para este punto, ya se hizo la comprobación del tamaño de ambos strings.
     int str_len = strlen(string1);
@@ -74,22 +75,25 @@ void completeMatrix(int **matrix, char *string1, char *string2){
         for(int j=1 ; j<str_len+1;j++){
             int m = min(matrix[i-1][j], matrix[i][j-1]);
             if (m < matrix[i-1][j-1]){
-                matrix[i][j] = m+1;
+                matrix[i][j] =  m +1;
             }
             else{
-                if(string1[i] == string2[j]){
+                if(string1[i-1] == string2[j-1]){
                     matrix[i][j]= matrix[i-1][j-1];
                 }
                 else{
                     matrix[i][j] = matrix[i-1][j-1]+1;
                 }
             }
-        }
+            printf("|%i|" ,matrix[i][j]);
+        } 
+        printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
     }
 }
 
 int main(int argc, char* argv[]){
-    
-    obtenerValor("banana", "ananas");
+    //algoritmo 1 test   
+    printf("%i\n",obtenerValor("fanfarria", "industria"));
+
     return 0;
 }
