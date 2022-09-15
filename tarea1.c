@@ -30,7 +30,14 @@ void destruirMatriz(int **matriz, int n){
     Hipotesis 2.1: Omega(n) y 2n, => Theta(n)
 
 */
+string[1]
 
+void completeMatrix(int **matrix, char *string1, char *string2){
+    for(i=0;i<n+1;i++){
+        for(j)
+    } 
+
+}
 
 int main(int argc, char* argv[]){
     int **miMatriz = construirMatriz(10);
