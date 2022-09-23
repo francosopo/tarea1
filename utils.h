@@ -16,3 +16,5 @@ void destruirPalabra(char *palabra){
 */
 char  **generarPalabras(int size);
 
+
+int **construirMatriz(int n);
