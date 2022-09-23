@@ -91,6 +91,13 @@ void completeMatrix(int **matrix, char *string1, char *string2){
     }
 }
 
+
+
+int estadisticaAlgoritmoUno(){
+    FILE *file = fopen('inputs.csv', 'r');
+    char *read = fread(1,file)
+}
+
 int main(int argc, char* argv[]){
     //algoritmo 1 test   
     printf("%i\n",obtenerValor("fanfarria", "industria"));
