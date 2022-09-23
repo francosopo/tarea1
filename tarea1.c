@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "tarea1.h"
+
 void completeMatrix(int **matrix, char *string1, char *string2);
 
 int **construirMatriz(int n){
@@ -85,22 +87,16 @@ void completeMatrix(int **matrix, char *string1, char *string2){
                     matrix[i][j] = matrix[i-1][j-1]+1;
                 }
             }
-            printf("|%i|" ,matrix[i][j]);
+            //printf("|%i|" ,matrix[i][j])
         } 
-        printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
+        //printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
     }
+    printf("listo\n");
 }
 
-
-
-int estadisticaAlgoritmoUno(){
-    FILE *file = fopen('inputs.csv', 'r');
-    char *read = fread(1,file)
-}
-
-int main(int argc, char* argv[]){
+/*int main(int argc, char* argv[]){
     //algoritmo 1 test   
     printf("%i\n",obtenerValor("fanfarria", "industria"));
 
     return 0;
-}
+}*/

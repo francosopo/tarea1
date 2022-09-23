@@ -18,22 +18,26 @@ def testLength():
     size= 30
     numPalabras = 100
     generarPalabrass(size,numPalabras)
-    nombreArchivo = f"palabrasAleatorias_{size*numPalabras}.txt"
-    contenido=""
+    nombreArchivo = f"palabrasAleatorias_{numPalabras}.txt"
+    contenido=[]
     with open(nombreArchivo,"r") as f:
-        contenido=f.read()
+        contenido = f.readlines()
     print(len(contenido))
-    print(size*numPalabras)
-    assert len(contenido)==size*numPalabras    
+    print(numPalabras)
+    assert len(contenido) == numPalabras    
 
     
 def generarPalabrass(size, numPalabras):
-    f= open(f"palabrasAleatorias_{size*numPalabras}.txt", 'w')
+    f= open(f"palabrasAleatorias_{numPalabras}.txt", 'w')
+    palabras = []
     for _ in range(numPalabras):
         palabra = generarPalabra(size)
-        f.write(palabra)
+        palabras.append(palabra)
+    palabras = "\n".join(palabras)
+    f.write(palabras)
     f.close()
 
 if(__name__=="__main__"):
-    testLength()
+    #testLength()
     #testPalabra()
+    generarPalabrass(5000, 100)
