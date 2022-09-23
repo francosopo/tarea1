@@ -1,25 +1,19 @@
 import random
 #genera un archivo con caracteres de tamaño (size)*numPalabras
-def generarPalabra(size,numPalabras ):
+def generarPalabra(size):
     l = []
     abc = "abcdefghijklmnopqrstuvwxyz"
 
     for i in range(size):
         l.append(abc[random.randint(0,len(abc) - 1 )])
     l="".join(l)
+    return l
 
-    f = open(f'palabrasAleatorias_{size * numPalabras}.txt', 'a+')
+def testPalabra():
+    largoPalabra = 30
+    palabraGenerada = generarPalabra(largoPalabra)
+    assert len(palabraGenerada) == largoPalabra
     
-    f.write(l)
-
-    f.close()
-
-def testPalabra(abc):
-    while True:
-        index = random.randint(0, len(abc) - 1)
-        if (index > 25):
-            print(index)
-            break
 def testLength():
     size= 30
     numPalabras = 100
@@ -39,5 +33,6 @@ def generarPalabrass(size, numPalabras):
 
 #testPalabra("abcdefghijklmnopqrstuvwxyz")
 if(__name__=="__main__"):
-    generarPalabrass(30,100)
-    testLength()
+    #generarPalabrass(30,100)
+    #testLength()
+    testPalabra()
