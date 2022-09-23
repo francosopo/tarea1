@@ -28,15 +28,12 @@ def testLength():
 
     
 def generarPalabrass(size, numPalabras):
-    size = 30
-    numPalabras = 100
     f= open(f"palabrasAleatorias_{size*numPalabras}.txt", 'w')
     for _ in range(numPalabras):
         palabra = generarPalabra(size)
         f.write(palabra)
     f.close()
 
-#testPalabra("abcdefghijklmnopqrstuvwxyz")
 if(__name__=="__main__"):
     testLength()
     #testPalabra()
