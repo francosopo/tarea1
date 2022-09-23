@@ -17,7 +17,7 @@ def testPalabra():
 def testLength():
     size= 30
     numPalabras = 100
-    generarPalabra(size,numPalabras)
+    generarPalabrass(size,numPalabras)
     nombreArchivo = f"palabrasAleatorias_{size*numPalabras}.txt"
     contenido=""
     with open(nombreArchivo,"r") as f:
@@ -28,11 +28,15 @@ def testLength():
 
     
 def generarPalabrass(size, numPalabras):
-    for i in range(numPalabras):
-        generarPalabra(size,numPalabras)
+    size = 30
+    numPalabras = 100
+    f= open(f"palabrasAleatorias_{size*numPalabras}.txt", 'w')
+    for _ in range(numPalabras):
+        palabra = generarPalabra(size)
+        f.write(palabra)
+    f.close()
 
 #testPalabra("abcdefghijklmnopqrstuvwxyz")
 if(__name__=="__main__"):
-    #generarPalabrass(30,100)
-    #testLength()
-    testPalabra()
+    testLength()
+    #testPalabra()
