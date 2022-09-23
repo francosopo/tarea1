@@ -5,35 +5,35 @@
 
 #include "tarea1.c"
 
-#define tamanho 5000
+#define tamanho 100
 #define cantidad 100
 
 typedef int (*Algoritmo)(char *string1, char *string2);
+
+double average(double *data, double lenData){
+    double sum = 0;
+    for (int i= 0; i< lenData; i++){
+        sum = sum + data[i];
+    }
+    return sum/lenData; 
+}
 
 int llenar_buff(char* buf,FILE*in){
     if(fgets(buf,tamanho + 2,in) == NULL){ //error
         fclose(in);
     }
-    //buf[tamanho] = '\0';
     return 1;
 }
 
-void hacerExperimentoParString(Algoritmo alg, char *string1, char *string2, int *time){
+void hacerExperimentoParString(Algoritmo alg, char *string1, char *string2, double *time){
     clock_t start, end;
     double diff;
 
-    //ftime(&start);
     start = clock();
-    int val = (*alg)(string1, string2);
-    printf("val: %i", val);
-    
-    //ftime(&end);
+    (*alg)(string1, string2);
     end = clock();
 
-    /*diff = (int) ((end.time - start.time)
-        + (end.millitm - start.millitm));*/
-    diff = (double) (end- start) / CLOCKS_PER_SEC;
-     
+    diff = ((double) (end- start)) / CLOCKS_PER_SEC; 
     *time = diff;
 }
 
@@ -48,18 +48,24 @@ void experimento1(){
     char buf1[cantidad/2][tamanho];
     char buf2[cantidad/2][tamanho];
 
-    int stats[cantidad]; // para guardar los tiempos
-    
-    for (int i = 0; i < cantidad - 1; i= i + 2){
-        llenar_buff(buf1[i],in);
-        llenar_buff(buf2[i],in);
+    double stats[cantidad/2]; // para guardar los tiempos
 
-        hacerExperimentoParString(&obtenerValor, buf1[i], buf2[i], &stats[i]);
-        printf("Iteracion %i completada en %i milliseg\n", i, stats[i]);
+    //se llenan los buffers
+    for (int i = 0; i < cantidad/2; i++){
+        llenar_buff(buf1[i], in);
+        llenar_buff(buf2[i], in);
     }
-
+    
+    for (int i = 0; i < cantidad/2; i++){
+        printf("buf1, buf2 = %i, %i\n", strlen(buf1[i]), strlen(buf2[i]));
+        hacerExperimentoParString(&obtenerValor, buf1[i], buf2[i], &stats[i]);
+        printf("Iteracion %i completada en %f seg\n", i, stats[i]);
+    }
+    double avg = average(stats, (double) cantidad);
+    printf("En promedio: %f seg\n", avg);
     fclose(in);
 }
+
 
 int main(){
     experimento1();

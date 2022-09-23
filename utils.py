@@ -1,4 +1,5 @@
 import random
+import sys
 #genera un archivo con caracteres de tamaño (size)*numPalabras
 def generarPalabra(size):
     l = []
@@ -40,4 +41,4 @@ def generarPalabrass(size, numPalabras):
 if(__name__=="__main__"):
     #testLength()
     #testPalabra()
-    generarPalabrass(5000, 100)
+    generarPalabrass(int(sys.argv[1]), int(sys.argv[2]))

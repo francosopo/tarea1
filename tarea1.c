@@ -91,7 +91,6 @@ void completeMatrix(int **matrix, char *string1, char *string2){
         } 
         //printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
     }
-    printf("listo\n");
 }
 
 /*int main(int argc, char* argv[]){
