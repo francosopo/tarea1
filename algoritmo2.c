@@ -33,15 +33,26 @@ int minDiagonal(int tentativo, int diagonal, char c1, char c2){
     }
 }
 
-int comparador(int z, int y, int w, char c1, char c2){
+int comparador(int z, int y, int w, int i, int j, char *str1, char *str2){
     if(w==z && z==y){
-        return 4; //me voy en diagonal, pero cobro
-    }
-    else if(z == y && w > z){
-        if(w < y) return 3; //me voy en la diagonal
-        else if(z > y) return 1; //me voy hacia el lado
+        if (str1[i+1] == str2[j+1]){
+            return 3; //me voy por la diagonal
+        }
+        else if (str1[i]== str2[j+1]){
+            return 2; //me voy para abajo
+        }
+        else if(str[i+1]== str2[j+1]){
+            return 1;//me voy para abajo
+        }
         else{
-            return 1 ;// me voy hacia el lado (o cualquiera)
+            return 1;
+        }
+    }
+    else if(z == y){
+        if(w < y) return 3; //me voy en la diagonal
+        else if(str1[i]==str2[j+1]) return 2; //me voy hacia abajo
+        else{ 
+            return 1; // me voy hacia el lado (o cualquiera)
         }
     }
     else if (z>y){
@@ -87,7 +98,7 @@ int algoritmo2(char *str1, char *str2){
             
             return buff[3]+ (len_str-i) + (len_str-j);
         }
-        int camino_a_seguir = comparador(buff[2], buff[1], buff[3]);
+        int camino_a_seguir = comparador(buff[2], buff[1], buff[3],i,j, str1, str2);
         if(camino_a_seguir == 3) {
             printf("str1: %s, str1[%i]: %c, str2: %s str2[%i]: %c\n", str1,i, str1[i], str2,j,str2[j]);
             //calculo nuevo y
