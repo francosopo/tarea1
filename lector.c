@@ -19,8 +19,10 @@ double average(double *data, double lenData){
 }
 
 int llenar_buff(char* buf,FILE*in){
-    if(fgets(buf,tamanho + 2,in) == NULL){ //error
+    if(fgets(buf,tamanho + 1,in) == NULL){ //error
         fclose(in);
+        perror("fgets");
+        exit(-1);
     }
     return 1;
 }
@@ -54,6 +56,7 @@ void experimento1(){
     for (int i = 0; i < cantidad/2; i++){
         llenar_buff(buf1[i], in);
         llenar_buff(buf2[i], in);
+        printf("%s\n%s\n", buf1[i], buf2[i]);
     }
     
     for (int i = 0; i < cantidad/2; i++){
