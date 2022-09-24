@@ -48,6 +48,7 @@ int compararTamano( char * str1, char * str2){
     int len_str1 = strlen(str1);
     int len_str2 = strlen(str2);
     if(len_str1 != len_str2){
+        printf("tamanho str1: %i, str2: %i", len_str1, len_str2);
         return 0; // los string no tienen el mismo tamaño FALSE
     }
     return 1; // los string tienen el mismo tamaño TRUE

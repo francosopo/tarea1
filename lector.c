@@ -5,7 +5,7 @@
 
 #include "tarea1.c"
 
-#define tamanho 100
+#define tamanho 1000
 #define cantidad 100
 
 typedef int (*Algoritmo)(char *string1, char *string2);
@@ -15,19 +15,20 @@ double average(double *data, double lenData){
     for (int i= 0; i< lenData; i++){
         sum = sum + data[i];
     }
-    return sum/lenData; 
+    return sum/lenData;
 }
 
 int llenar_buff(char* buf,FILE*in){
-    if(fgets(buf,tamanho + 1,in) == NULL){ //error
+    if(fgets(buf,tamanho + 2,in) == NULL){ //error
         fclose(in);
         perror("fgets");
         exit(-1);
     }
+    //printf("buf: %s, size: %i \n ", buf, sizeof(buf));
     return 1;
 }
 
-void hacerExperimentoParString(Algoritmo alg, char *string1, char *string2, double *time){
+void hacerExperimento1(Algoritmo alg, char *string1, char *string2, double *time){
     clock_t start, end;
     double diff;
 
@@ -56,15 +57,13 @@ void experimento1(){
     for (int i = 0; i < cantidad/2; i++){
         llenar_buff(buf1[i], in);
         llenar_buff(buf2[i], in);
-        printf("%s\n%s\n", buf1[i], buf2[i]);
+        if(i == cantidad/2 -1){
+          buf1[i][tamanho] = '\0';  
+        }
+        //printf("%s\n%s\n", buf1[i], buf2[i]);
+        hacerExperimento1(&obtenerValor, buf1[i], buf2[i], &stats[i]);
     }
-    
-    for (int i = 0; i < cantidad/2; i++){
-        printf("buf1, buf2 = %i, %i\n", strlen(buf1[i]), strlen(buf2[i]));
-        hacerExperimentoParString(&obtenerValor, buf1[i], buf2[i], &stats[i]);
-        printf("Iteracion %i completada en %f seg\n", i, stats[i]);
-    }
-    double avg = average(stats, (double) cantidad);
+    double avg = average(stats, (double) cantidad/2);
     printf("En promedio: %f seg\n", avg);
     fclose(in);
 }
