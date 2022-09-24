@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Funcion min
+ * 
+ * Entrega el minimo de dos valores
+ * 
+ * @param val1 el valor 1
+ * @param val2 el valor 2
+*/
 int min(int val1, int val2){
     if (val1 < val2){ 
         return val1;
@@ -10,7 +18,15 @@ int min(int val1, int val2){
         return val2;
     }
 }
-
+/**
+ * Funcion compararTamano
+ * 
+ * Compara el tamaño de dos string, retornando 0 si son distintos
+ * y 1 si son iguales
+ * 
+ * @param str1 el string 1
+ * @param str2 el string 2
+*/
 int compararTamano( char * str1, char * str2){
     int len_str1 = strlen(str1);
     int len_str2 = strlen(str2);
@@ -21,6 +37,19 @@ int compararTamano( char * str1, char * str2){
     return 1; // los string tienen el mismo tamaño TRUE
 }
 
+
+/**
+ * Funcion minDiagonal
+ * 
+ * Entrega el minimo entre @param tentativo y @param diagonal
+ * dependiendo de los caracteres @param c1 y @param c2
+ * 
+ * @param tentativo el minimo tentativo
+ * @param diagonal el valor de arriba a la izquierda
+ * @param c1 el caracter de la primera palabra
+ * @param c2 el caracter de la segunda palabra
+ * 
+*/
 int minDiagonal(int tentativo, int diagonal, char c1, char c2){
     if(tentativo >= diagonal){
         if(c1 == c2){
@@ -33,6 +62,19 @@ int minDiagonal(int tentativo, int diagonal, char c1, char c2){
     }
 }
 
+/**
+ * Funcion comparador
+ * 
+ * Entrega el camino por el cual irse, si hacia abajo, diagonal o derecha
+ * 
+ * @param z el valor de la izquierda
+ * @param y el valor de arriba
+ * @param w el valor de la diagonal derecha abajo
+ * @param i el indice del caracter de la primera palabra
+ * @param j el indice del caracter de la segunda palabra
+ * @param str1 el string 1 
+ * @param str2 el string 2
+*/
 int comparador(int z, int y, int w, int i, int j, char *str1, char *str2){
     if(w==z && z==y){
         if (str1[i+1] == str2[j+1]){
@@ -41,7 +83,7 @@ int comparador(int z, int y, int w, int i, int j, char *str1, char *str2){
         else if (str1[i]== str2[j+1]){
             return 2; //me voy para abajo
         }
-        else if(str[i+1]== str2[j+1]){
+        else if(str1[i+1]== str2[j+1]){
             return 1;//me voy para abajo
         }
         else{
@@ -72,12 +114,30 @@ int comparador(int z, int y, int w, int i, int j, char *str1, char *str2){
     }
 }
 
+/**
+ * Funcion calcular_W
+ * 
+ * Funcion que calcula el valor asociado a la derecha y 
+ * abajo de una cuadricula de 2x2
+ * 
+ * @param x el valor de arriba a la izquierda
+ * @param y el valor de arriba
+ * @param z el valor de la izquierda
+*/
 int calcular_W(int x, int y, int z, char c1, char c2){
     int min_tentativo = min(y, z);
     int minimo = minDiagonal(min_tentativo, x, c1, c2);
     return minimo;
 }
 
+/**
+ * Funcion algoritmo2
+ * 
+ * Ejecuta el algoritmo en cache
+ * 
+ * @param str1 el string 1
+ * @param str2 el string 2
+*/
 int algoritmo2(char *str1, char *str2){
     // diagonal, arriba, izq, valor
     if(compararTamano(str1, str2) == 0){
@@ -95,8 +155,8 @@ int algoritmo2(char *str1, char *str2){
     buff[3] = minimo;
     while(1){
         if (i == len_str || j == len_str){
-            
-            return buff[3]+ (len_str-i) + (len_str-j);
+            printf("buf[3] = %i, i= %i, j=%i\n",buff[3], i, j);
+            return buff[3];
         }
         int camino_a_seguir = comparador(buff[2], buff[1], buff[3],i,j, str1, str2);
         if(camino_a_seguir == 3) {
@@ -134,6 +194,14 @@ int algoritmo2(char *str1, char *str2){
     return 0;
 }
 
+/**
+ * Funcion obtenerValor
+ * 
+ * Entrega la solucion del algoritmo 2
+ * 
+ * @param str1 el string 1
+ * @param str2 el string 2
+*/
 int obtenerValor(char *str1, char *str2){
     if(compararTamano(str1, str2) == 0){
         perror("Los strings no coinciden");
@@ -148,5 +216,13 @@ int main(int argc, char *argv[]){
 
     int res2 = obtenerValor("francoso", "francoso");
     printf("res2 0 == %i\n", res2);
+    
+
+    int res3 = obtenerValor("bbbaaa", "abbaaa");
+    printf("res3 expected 1 = got: %i\n", res3);
+
+    int res4 = obtenerValor("xxabcdefghijk","abcdefghijkyy");
+    printf("res4 expected 4 = got %i\n", res4);
+
     return 0;
 }

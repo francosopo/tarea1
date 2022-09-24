@@ -3,8 +3,26 @@
 #include <string.h>
 #include "tarea1.h"
 
+/**
+ * Funcion completeMatrix
+ * 
+ * Completa la matriz asociada al algoritmo uno
+ * 
+ * @param matrix la matriz
+ * @param string1 el input 
+ * @param string2 el input
+ * 
+*/
 void completeMatrix(int **matrix, char *string1, char *string2);
 
+/**
+ * Funcion construirMatriz
+ * 
+ * Inicializa la matriz cuadrada de tamaño @param n x @param n
+ * 
+ * @param n el tamaño de una fila de la matriz
+ * 
+*/
 int **construirMatriz(int n){
     int **miMatriz = malloc(sizeof(int*) * (n + 1));
     for(int i = 0; i < n + 1; i++){
@@ -22,6 +40,14 @@ int **construirMatriz(int n){
 
 }
 
+/**
+ * Funcion destruirMatriz
+ * 
+ * Funcion que libera la memoria asociada a la matriz
+ * 
+ * @param matriz la matriz
+ * @param n el tamaño de una fila de la matriz
+*/
 void destruirMatriz(int **matriz, int n){
     for (int i = 0; i < n + 1; i++){
         free(matriz[i]);
@@ -29,6 +55,14 @@ void destruirMatriz(int **matriz, int n){
     free(matriz);
 }
 
+/**
+ * Funcion min
+ * 
+ * Entrega el minimo de dos valores
+ * 
+ * @param val1 el primer valor
+ * @param val2 el segundo valor
+*/
 int min(int val1, int val2){
     if (val1 < val2){ 
         return val1;
@@ -44,6 +78,16 @@ int min(int val1, int val2){
     hipotesis de espacio = O(n^2)
 
 */
+
+/**
+ * Funcion compararTamano
+ * 
+ * Compara el tamaño de dos string, retornando 0 si son distintos
+ * y 1 si son iguales
+ * 
+ * @param str1 el string 1
+ * @param str2 el string 2
+*/
 int compararTamano( char * str1, char * str2){
     int len_str1 = strlen(str1);
     int len_str2 = strlen(str2);
@@ -54,6 +98,16 @@ int compararTamano( char * str1, char * str2){
     return 1; // los string tienen el mismo tamaño TRUE
 }
 
+
+/**
+ * Funcion obtenerValor
+ * 
+ * Obtiene el valor calculado con programacion dinámica,
+ * es decir, el valor asociado a la celda (n-1, n-1)
+ * 
+ * @param str1 el string 1
+ * @param str2 el string 2
+*/
 int obtenerValor(char *str1, char *str2){
     if(compararTamano(str1, str2) == 0){
         perror("Los strings no coinciden");
