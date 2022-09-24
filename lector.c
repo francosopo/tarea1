@@ -3,7 +3,7 @@
 #include <sys\timeb.h>
 #include <time.h>
 
-#include "tarea1.c"
+#include "algoritmo1.c"
 
 #define tamanho 1000
 #define cantidad 100
