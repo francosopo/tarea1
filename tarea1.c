@@ -85,15 +85,15 @@ void completeMatrix(int **matrix, char *string1, char *string2){
                     matrix[i][j] = matrix[i-1][j-1]+1;
                 }
             }
-            printf("|%i|" ,matrix[i][j]);
+            //printf("|%i|" ,matrix[i][j]);
         } 
-        printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
+        //printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
     }
 }
 
 int main(int argc, char* argv[]){
     //algoritmo 1 test   
     printf("%i\n",obtenerValor("fanfarria", "industria"));
-
+    
     return 0;
 }
