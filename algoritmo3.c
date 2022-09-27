@@ -148,6 +148,37 @@ void destruirMatriz(int **matriz, int tamanho){
 }
 
 /**
+ * Función modificada del algoritmo 1, la cual rellena una matriz en base a los string 1 y 2, util para rellenar la submatríz
+ * @param matrix matriz a modificar
+ * @param string1 sección de string que será analizado y comparado
+ * @param string2 sección de string que será analizado y comparado
+ */
+int **completeMatrix(int **matrix, char *string1, char *string2){
+    //Asumimos que, para este punto, ya se hizo la comprobación del tamaño de ambos strings.
+    int str_len = strlen(string1);
+    for(int i=1 ;i<str_len+1;i++){
+        for(int j=1 ; j<str_len+1;j++){
+            int m = min(matrix[i-1][j], matrix[i][j-1]);
+            if (m < matrix[i-1][j-1]){
+                matrix[i][j] =  m +1;
+            }
+            else{
+                if(string1[i-1] == string2[j-1]){
+                    matrix[i][j]= matrix[i-1][j-1];
+                }
+                else{
+                    matrix[i][j] = matrix[i-1][j-1]+1;
+                }
+            }
+            //printf("|%i|" ,matrix[i][j]);
+            //printf("|%i|" ,matrix[i][j]);
+        } 
+    }
+    return matrix;
+}
+
+
+/**
  * Función que actua tal como el algoritmo 3
  * @param str1 primer string
  * @param str2 segundo string
@@ -160,14 +191,19 @@ int algoritmo3(char *str1, char *str2){
     }
     int tamaño_del_arreglo = strlen(str1);
     //genero los arreglos originales, que serían dos lineas de tamaño
-    int *horizontales = malloc(sizeof(int)*tamaño_del_arreglo);
-    int *verticales = malloc(sizeof(int)*(tamaño_del_arreglo));
+    int *horizontales = malloc(sizeof(int)*(tamaño_del_arreglo+1));
+    int *verticales = malloc(sizeof(int)*(tamaño_del_arreglo+1));
 
     //genero el caso base
-    for(int i = 0; i<tamaño_del_arreglo;i++){
+    for(int i = 0; i<tamaño_del_arreglo+1;i++){
         horizontales[i]= i;
         verticales[i] = i;
     }
+    int i = 0;
+    int j = 0;
+
+    
+    
 }
 
 int main(int argc, char *argv[]){
