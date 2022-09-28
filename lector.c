@@ -6,7 +6,7 @@
 #include "algoritmo1.c"
 #include "algoritmo2a.c"
 
-#define tamanho 100
+#define tamanho 4096
 #define cantidad 1000
 
 /** 
@@ -49,6 +49,7 @@ int llenar_buff(char* buf,FILE*in){
     if(fgets(buf,tamanho + 2,in) == NULL){ //error
         fclose(in);
         perror("fgets");
+        printf("%i", errno);
         exit(-1);
     }
     //printf("buf: %s, size: %i \n ", buf, sizeof(buf));
@@ -92,8 +93,8 @@ void hacerExperimento(Algoritmo alg, char *string1, char *string2, double *time)
 
 void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     // nombre del archivo de palabras
-    char destino[40];
-    snprintf(destino, 40, "%s_%i.txt", "palabrasAleatorias", cantidad);
+    char destino[100];
+    snprintf(destino, 100, "%s_%s_%i_%s_%i.txt", "palabrasAleatorias","tam", tamanho,"cant", cantidad);
 
     // abriendo el archivo de palabras
     FILE*in = fopen(destino,"r");
@@ -129,6 +130,6 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
 */
 int main(){
     promedioExp(&hacerExperimento, &obtenerValor, 1);
-    promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);
+    //promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);
     return 0;    
 }

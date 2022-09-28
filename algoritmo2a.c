@@ -34,21 +34,62 @@ int obtenerValor2(char *str1, char *str2, int i, int j, int *buf){
     } 
 }
 
-int obtenerValorv2(char *str1, char *str2){
-    int str_len = strlen(str1);
-    int *valoresX = calloc(str_len, sizeof(int));
-    int *valoresY = calloc(str_len, sizeof(int));
-    
+int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
+    char *str1_copy = calloc(arr_len, sizeof(char));
+    char *str2_copy = calloc(arr_len, sizeof(char));
 
-    free(valoresX);
-    free(valoresY);
+    strcpy(str1_copy, str1);
+    strcpy(str2_copy, str2);
+
+    for (int i = 0; i < arr_len - 1; i++){
+        //caso base
+        if(i == 0){
+            int buf[3] = {arr1[0], arr1[1], arr2[1]};
+            arr1[i] = calcular_w(buf, 3, *str1_copy, *str2_copy);
+        }else if(*str1 == '\0'){
+            return arr1[0];
+        }
+        else{//caso iterativo
+            printf("%i: %s, %s\n",i, str1_copy, str2_copy);
+            int buf[3] = {arr1[i - 1], arr1[i], arr1[i + 1]};
+            arr1[i] = calcular_w(buf, 3, *str1_copy, *str2_copy);
+            str1_copy++;
+            str2_copy++;
+        }
+    }
+    free(str1_copy);
+    free(str2_copy);
+    return arr1[0];
+}
+
+int obtenerValorv2(char *str1, char *str2, int *valoresX, int *valoresY){
+    int str_len = strlen(str1);
+    
+    //inicializando los arreglos
+    for (int i = 0; i < str_len + 1; i++){
+        valoresX[i] = valoresY[i] = i;
+    }
+
+    for(int i = 0; i < str_len; i++){
+        llenarArreglos(valoresX, valoresY, str_len - i, str1, str2);
+        llenarArreglos(valoresY, valoresX, str_len - i, str1, str2);
+        printf("Aquii %i", i);
+    }
+    int res = valoresX[0];
+    printf("res: %i", res);
+    return res;
 }
 
 
 int obtenerValorAlg2(char *str1, char *str2){
 	int str_len = strlen(str1);
-    int buf[3];
-    int res = obtenerValor2(str1, str2, str_len, str_len, buf);
+    //int buf[3];
+    int *valoresX = calloc(str_len, sizeof(int));
+    int *valoresY = calloc(str_len, sizeof(int));
+    int res = obtenerValorv2(str1, str2, valoresX, valoresY);
+    
+
+    free(valoresX); free(valoresY);
     return res;
 }
 
@@ -60,6 +101,7 @@ void TestComprobar(int expected, int got, int nTest){
 }
 
 /*int main(int argc, char *argv[]){
+    printf("Holi\n");
     int valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
     int valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
     int valor3 = obtenerValorAlg2("francoso", "francoso"); // deberia ser 0

@@ -142,11 +142,7 @@ void completeMatrix(int **matrix, char *string1, char *string2){
                     matrix[i][j] = matrix[i-1][j-1]+1;
                 }
             }
-<<<<<<< HEAD:tarea1.c
-            //printf("|%i|" ,matrix[i][j]);
-=======
             //printf("|%i|" ,matrix[i][j])
->>>>>>> 5e7c263da5bc51b6bead6ef2e51368ae7ac2c3ad:algoritmo1.c
         } 
         //printf("\n ---------------------------------------------------------------------------------------------------------------------\n");
     }
