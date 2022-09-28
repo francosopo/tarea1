@@ -4,9 +4,10 @@
 #include <time.h>
 
 #include "algoritmo1.c"
+#include "algoritmo2a.c"
 
-#define tamanho 1000
-#define cantidad 100
+#define tamanho 100
+#define cantidad 1000
 
 /** 
  * Puntero Algoritmo
@@ -17,6 +18,8 @@
  * @param string2 es un string de input
 */
 typedef int (*Algoritmo)(char *string1, char *string2);
+
+typedef void (*Experimento)(Algoritmo alg, char *str1, char *str2, double *stats);
 
 /** 
  * Funcion average
@@ -64,7 +67,7 @@ int llenar_buff(char* buf,FILE*in){
  * @param time tiempo que se demora
  * 
 */
-void hacerExperimento1(Algoritmo alg, char *string1, char *string2, double *time){
+void hacerExperimento(Algoritmo alg, char *string1, char *string2, double *time){
     clock_t start, end;
     double diff;
 
@@ -77,14 +80,17 @@ void hacerExperimento1(Algoritmo alg, char *string1, char *string2, double *time
 }
 
 /**
- * Funcion experimento1
+ * Funcion promedioExp
  * 
  * Funcion que ejecuta el experimento uno asociado al algoritmo uno
  * retiradas veces y calcula el promedio de los tiempos de ejecucion
  * 
+ * @param exp el experimento que calcula una iteracion 
+ * @param alg el algoritmo
+ * 
 */
 
-void experimento1(){
+void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     // nombre del archivo de palabras
     char destino[40];
     snprintf(destino, 40, "%s_%i.txt", "palabrasAleatorias", cantidad);
@@ -105,11 +111,14 @@ void experimento1(){
           buf1[i][tamanho] = '\0';  
         }
         //printf("%s\n%s\n", buf1[i], buf2[i]);
-        hacerExperimento1(&obtenerValor, buf1[i], buf2[i], &stats[i]);
+        (*exp)(*alg, buf1[i], buf2[i], &stats[i]);
     }
     double avg = average(stats, (double) cantidad/2);
-    printf("En promedio: %f seg\n", avg);
+    // nalg, cantidad, largo, tiempo promedio
+    FILE *statsFile = fopen("stats.csv", "a+");
+    fprintf(statsFile,"%i,%i,%i,%f\n",numeroAlg, cantidad, tamanho, avg);
     fclose(in);
+    fclose(statsFile);
 }
 
 /**
@@ -119,6 +128,7 @@ void experimento1(){
  * 
 */
 int main(){
-    experimento1();
+    promedioExp(&hacerExperimento, &obtenerValor, 1);
+    promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);
     return 0;    
 }
