@@ -44,6 +44,14 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
     char *str1_copy = calloc(arr_len, sizeof(char));
     char *str2_copy = calloc(arr_len, sizeof(char));
 
+    if(str1_copy == NULL){
+        perror("calloc");
+    }
+
+    if(str2_copy == NULL){
+        perror("calloc");
+    }
+
     strcpy(str1_copy, str1);
     strcpy(str2_copy, str2);
 
@@ -99,7 +107,13 @@ int obtenerValorAlg2(char *str1, char *str2){
 	int str_len = strlen(str1) + 1;
     //int buf[3];
     int *valoresX = calloc(str_len, sizeof(int));
+    if(valoresX == NULL){
+        perror("calloc");
+    }
     int *valoresY = calloc(str_len, sizeof(int));
+    if (valoresY == NULL){
+        perror("calloc");
+    }
     int res = obtenerValorv2(str1, str2, valoresX, valoresY);
     free(valoresX); free(valoresY);
     return res;
@@ -112,7 +126,7 @@ void TestComprobar(int expected, int got, int nTest){
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-/*int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
     printf("Holi\n");
     int valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
     int valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
@@ -128,4 +142,3 @@ void TestComprobar(int expected, int got, int nTest){
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
 }
-*/ /**/
