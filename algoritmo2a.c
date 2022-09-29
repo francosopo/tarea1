@@ -112,7 +112,7 @@ void TestComprobar(int expected, int got, int nTest){
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
     printf("Holi\n");
     int valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
     int valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
@@ -128,3 +128,4 @@ int main(int argc, char *argv[]){
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
 }
+*/

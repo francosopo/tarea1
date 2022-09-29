@@ -6,7 +6,7 @@
 #include "algoritmo1.c"
 #include "algoritmo2a.c"
 
-#define tamanho 16384
+#define tamanho 16
 #define cantidad 1000
 
 /** 
@@ -129,7 +129,7 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
  * 
 */
 int main(){
-    promedioExp(&hacerExperimento, &obtenerValor, 1);
-    //promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);
+    //promedioExp(&hacerExperimento, &obtenerValor, 1);
+    promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);
     return 0;    
 }
