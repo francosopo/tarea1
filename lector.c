@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys\timeb.h>
+//#include "sys\timeb.h"
 #include <time.h>
-
+#include <errno.h>
 #include "algoritmo1.c"
 #include "algoritmo2a.c"
 
-#define tamanho 4096
+#define tamanho 16384
 #define cantidad 1000
 
 /** 
