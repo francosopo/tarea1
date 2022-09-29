@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define M 25 //El tamaño de la memoria principal
+#define M 2048000 //El tamaño de la memoria principal sacado en google.
 
 // en el nombre del archivo va a decir si corresponde a una fila o a una columna
 // tamanho es el tamaño de una fila de la matriz
@@ -27,111 +27,6 @@ int compararTamano( char * str1, char * str2){
     return 1; // los string tienen el mismo tamaño TRUE
 }
 
-/**
- * 
- * Crea una submatriz desde el archivo @param archivoFila y @param archivoColumna
- * 
- * @param tamanho es el tamaño de una fila de la matriz
- * @param k es el indice desde donde se lee la fila o la columna solapada
- * @param nombreArchivoFila es el nombre del archivo que contiene la fila indicada
- * @param nombreArchivoColumna es el nombre del archivo que contiene la columna indicada
-*/
-int **matrizPequena(int tamanho,int k,int j, char *nombreArchivoFila, char *nombreArchivoColumna){
-    int **matriz = calloc(tamanho,sizeof(int*));
-    for(int i = 0; i < tamanho; i++){
-        int *fila = calloc(tamanho, sizeof(int));
-        matriz[i] = fila;
-    }
-    obtenerDatos(matriz[0], tamanho,k,nombreArchivoFila);
-
-    int *columna = calloc(tamanho, sizeof(int));
-    obtenerDatos(columna, tamanho, j, nombreArchivoColumna);
-    
-    for(int i = 0; i < tamanho; i++){
-        matriz[0][i] = columna[i];
-    }
-
-    free(columna);
-
-    return matriz;
-}
-
-/**
- * Funcion guardarDatos
- * 
- * Guarda los datos de @param fila en un archivo de nombre @param nombreArchivo
- * 
- * @param fila es el arreglo que se quiere guardar en  memoria externa
- * @param tamanhoDatos es el tamaño de una fila de la submatriz
- * @param k donde inician los datos de la fila o de la columna de la submatriz 
- * @param nombreArchivo es el nombre del archivo que tiene la fila o la columna
- * solapada de la matriz
-*/
-void guardarDatos(int *fila, int tamanhoDatos,int k, char *nombreArchivo){
-    FILE *in = fopen(nombreArchivo, "w");
-    fseek(in, sizeof(int) * tamanhoDatos * (k), SEEK_SET);
-    for(int i =0; i < tamanhoDatos; i++){
-        fwrite(&fila[i], sizeof(int), 1, in);
-    }
-    fclose(in);
-}
-
-/**
- * Funcion obtenerDatos
- * 
- * Funcion que lee los datos del archivo @param nombreArchivo
- * 
- * @param fila donde guardar los datos
- * @param tamanhoDatos el tamaño de una fila de la submatriz
- * @param k donde inicia la fila o la columna solapada de la submatriz 
- * @param nombreArchivo el nombre del archivo
-*/
-void obtenerDatos(int *fila, int tamanhoDatos, int k, char *nombreArchivo){
-    FILE *out = fopen(nombreArchivo, "r");
-    fseek(out, sizeof(int) * tamanhoDatos * k, SEEK_SET);
-    for(int i = 0; i < tamanhoDatos; i++){
-        fread(&fila[i], sizeof(int), 1, out);
-    }
-    fclose(out);
-}
-
-
-/**
- * Test guardar
- * 
- * Prueba que se guarde la informacion correctamente
-*/
-void testguardarDelPrincipio(){
-    char *nombreArchivo= "miColumna.bin";
-    int misDatos[9] = {1,2,3,4,5,6,7,8,9};
-    int tamanho = 9;
-    guardarDatos(misDatos,tamanho,0,nombreArchivo);
-    int deVuelta[9];
-    obtenerDatos(deVuelta, tamanho,0,nombreArchivo);
-    for (int i = 0; i < tamanho; i++){
-        if( misDatos[i] != deVuelta[i]){
-            fprintf(stderr,"Error: expected %i, got %i", misDatos[i], deVuelta[i]);
-        }
-    }
-    fprintf(stdout,"Todo bien\n");
-}
-
-void testGuardarEnMedio(){
-    char *nombreArchivo = "miColumna.bin";
-    int misDatos[9] = {1,2,3,4,5,6,7,8,9};
-    int tamanho = 9;
-    guardarDatos(misDatos, tamanho, 3, nombreArchivo);
-    int deVuelta[9];
-    obtenerDatos(deVuelta, tamanho, 3, nombreArchivo);
-    for(int i = 0; i < tamanho; i++){
-        if (misDatos[i] != deVuelta[i]){
-            fprintf(stderr,"Error, expected %i, got %i", misDatos[i], deVuelta[i]);
-        }
-    }
-    fprintf(stdout, "Todo bien\n");
-
-}
-
 
 /**
  * Funcion destruirMatriz
@@ -148,35 +43,52 @@ void destruirMatriz(int **matriz, int tamanho){
 }
 
 /**
+ * Funcion min
+ * 
+ * Entrega el minimo de dos valores
+ * 
+ * @param val1 el primer valor
+ * @param val2 el segundo valor
+*/
+int min(int val1, int val2){
+    if (val1 < val2){ 
+        return val1;
+    }
+    else {
+        return val2;
+    }
+}
+
+/**
  * Función modificada del algoritmo 1, la cual rellena una matriz en base a los string 1 y 2, util para rellenar la submatríz
  * @param matrix matriz a modificar
  * @param string1 sección de string que será analizado y comparado
  * @param string2 sección de string que será analizado y comparado
+ 
+ *void completeMatrix(int **matrix, char *string1, char *string2){
+ *    //Asumimos que, para este punto, ya se hizo la comprobación del tamaño de ambos strings.
+ *   int str_len1 = strlen(string1);
+ *   int str_len2 = strlen(string2);
+ *   for(int i=1 ;i < str_len1 ;i++){
+ *       for(int j=1 ; j < str_len2 ;j++){
+ *           int m = min(matrix[i-1][j], matrix[i][j-1]);
+ *           if (m < matrix[i-1][j-1]){
+ *               matrix[i][j] =  m +1;
+ *           }
+ *           else{
+ *               if(string1[i-1] == string2[j-1]){
+ *                   matrix[i][j]= matrix[i-1][j-1];
+ *               }
+ *               else{
+ *                   matrix[i][j] = matrix[i-1][j-1]+1;
+ *               }
+ *           }
+ *           //printf("|%i|" ,matrix[i][j]);
+ *           //printf("|%i|" ,matrix[i][j]);
+ *       } 
+ *   }
+ *}
  */
-int **completeMatrix(int **matrix, char *string1, char *string2){
-    //Asumimos que, para este punto, ya se hizo la comprobación del tamaño de ambos strings.
-    int str_len = strlen(string1);
-    for(int i=1 ;i<str_len+1;i++){
-        for(int j=1 ; j<str_len+1;j++){
-            int m = min(matrix[i-1][j], matrix[i][j-1]);
-            if (m < matrix[i-1][j-1]){
-                matrix[i][j] =  m +1;
-            }
-            else{
-                if(string1[i-1] == string2[j-1]){
-                    matrix[i][j]= matrix[i-1][j-1];
-                }
-                else{
-                    matrix[i][j] = matrix[i-1][j-1]+1;
-                }
-            }
-            //printf("|%i|" ,matrix[i][j]);
-            //printf("|%i|" ,matrix[i][j]);
-        } 
-    }
-    return matrix;
-}
-
 
 /**
  * Función que actua tal como el algoritmo 3
@@ -189,24 +101,86 @@ int algoritmo3(char *str1, char *str2){
         fprintf(stderr, "los tamaños no coinciden");
         exit(1);
     }
-    int tamaño_del_arreglo = strlen(str1);
-    //genero los arreglos originales, que serían dos lineas de tamaño
-    int *horizontales = malloc(sizeof(int)*(tamaño_del_arreglo+1));
-    int *verticales = malloc(sizeof(int)*(tamaño_del_arreglo+1));
+    int tamano_del_arreglo = strlen(str1);
+    //genero los arreglos originales, que serían dos lineas de tamaño, son +1 por que la casilla 0 para ellos, aun que es compartida originalmente
+    //es necesaria para el subsiguiente calculo
+    int *horizontales = malloc(sizeof(int)*(tamano_del_arreglo+1));
+    int *verticales = malloc(sizeof(int)*(tamano_del_arreglo+1));
 
     //genero el caso base
-    for(int i = 0; i<tamaño_del_arreglo+1;i++){
+    for(int i = 0; i<tamano_del_arreglo+1;i++){
         horizontales[i]= i;
         verticales[i] = i;
     }
-    int i = 0;
-    int j = 0;
-
-    
-    
+    //indicadores de como voy;
+    int i = 1;
+    int j = 1;
+    //tengo que, dado que los ints son de 32 bits, entonces puedo guardar en memoria cache 64000 ints
+    //esto implica que maximo puedo utilizar x=252.222..., o aproximando x=250.
+    int x=250;
+    //la iteración termina al colocar j e i en el tamaño del arreglo,
+    while(i!=tamano_del_arreglo && j!=tamano_del_arreglo){
+        int mi, mj;
+        if (i+x > tamano_del_arreglo){
+            mi= tamano_del_arreglo;
+        }
+        else{
+            mi= i+x;
+        }
+        if(j+x  > tamano_del_arreglo){
+            mj=tamano_del_arreglo;
+        }
+        else{
+            mj=x+j;
+        }
+        int myMatriz[mi-i+1][mj-j+1];
+        //relleno el substring1 y la fila 0 del la matriz en cache
+        for(int k=i; k<=mi; k++){
+            myMatriz[k-i][0] = verticales[k];
+        }
+        //relleno la columna 0 y el substring 2
+        for(int k =j; k<= mj; k++){
+            myMatriz[0][k-j] = horizontales[k];
+        }
+        //hago el algoritmo en la submatriz:
+        for(int pi = i+1; pi<=mi;pi++){
+            for(int pj=j+1; pj<=mj; pj++){
+                int m= min(myMatriz[pi-1][pj], myMatriz[pi][pj-1]);
+                if (myMatriz[pi-1][pj-1] > m){
+                    myMatriz[pi-i][pj-i]=m+1;
+                }
+                else{
+                    if(str1[pi-1]==str2[pj-1]){
+                        myMatriz[pi][pj]=myMatriz[pi-1][pj-1];
+                    }
+                    else{
+                        myMatriz[pi][pj]=myMatriz[pi-1][pj-1]+1;
+                    }
+                }
+            }
+        }
+        //reemplazo el valor de los tramos que borde horizontal y vertical obtenidos
+        for(int k=i; k<= mi; k++){
+            verticales[k] = myMatriz[k-i][mj-j];
+        }
+        for(int k=j; k<= mj; k++){
+            horizontales[k]= myMatriz[mi-i][k-j];
+        }
+        //luego me muevo a la derecha
+        i=mi;
+        //si ya estoy pegado a la derecha, pero aun no alcanzo la esquina, voy para abajo;
+        if(i==tamano_del_arreglo && j !=tamano_del_arreglo){
+            j=mj;
+            i=0;
+        }
+    }
+    int result= horizontales[tamano_del_arreglo];
+    free(horizontales);
+    free(verticales);
+    return result;
 }
 
 int main(int argc, char *argv[]){
-    testguardarDelPrincipio();
-    testGuardarEnMedio();
+    printf("algoritmo3: %i\n", algoritmo3("ananas","banana"));
+    return 0;
 }
