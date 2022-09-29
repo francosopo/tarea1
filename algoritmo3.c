@@ -60,37 +60,6 @@ int min(int val1, int val2){
 }
 
 /**
- * Función modificada del algoritmo 1, la cual rellena una matriz en base a los string 1 y 2, util para rellenar la submatríz
- * @param matrix matriz a modificar
- * @param string1 sección de string que será analizado y comparado
- * @param string2 sección de string que será analizado y comparado
- 
- *void completeMatrix(int **matrix, char *string1, char *string2){
- *    //Asumimos que, para este punto, ya se hizo la comprobación del tamaño de ambos strings.
- *   int str_len1 = strlen(string1);
- *   int str_len2 = strlen(string2);
- *   for(int i=1 ;i < str_len1 ;i++){
- *       for(int j=1 ; j < str_len2 ;j++){
- *           int m = min(matrix[i-1][j], matrix[i][j-1]);
- *           if (m < matrix[i-1][j-1]){
- *               matrix[i][j] =  m +1;
- *           }
- *           else{
- *               if(string1[i-1] == string2[j-1]){
- *                   matrix[i][j]= matrix[i-1][j-1];
- *               }
- *               else{
- *                   matrix[i][j] = matrix[i-1][j-1]+1;
- *               }
- *           }
- *           //printf("|%i|" ,matrix[i][j]);
- *           //printf("|%i|" ,matrix[i][j]);
- *       } 
- *   }
- *}
- */
-
-/**
  * Función que actua tal como el algoritmo 3
  * @param str1 primer string
  * @param str2 segundo string
@@ -136,25 +105,30 @@ int algoritmo3(char *str1, char *str2){
         int myMatriz[mi-i+1][mj-j+1];
         //relleno el substring1 y la fila 0 del la matriz en cache
         for(int k=i; k<=mi; k++){
-            myMatriz[k-i][0] = verticales[k];
+            myMatriz[k-i][0] = verticales[k-1];
+            printf("myMatriz[%i][%i]=%i\n",k-i,0,myMatriz[k-i][0]);
         }
         //relleno la columna 0 y el substring 2
         for(int k =j; k<= mj; k++){
-            myMatriz[0][k-j] = horizontales[k];
+            myMatriz[0][k-j] = horizontales[k-1];
+            printf("myMatriz[%i][%i]=%i\n",0,k-j,myMatriz[0][k-j]);
         }
         //hago el algoritmo en la submatriz:
         for(int pi = i+1; pi<=mi;pi++){
             for(int pj=j+1; pj<=mj; pj++){
-                int m= min(myMatriz[pi-1][pj], myMatriz[pi][pj-1]);
-                if (myMatriz[pi-1][pj-1] > m){
-                    myMatriz[pi-i][pj-i]=m+1;
+                int m= min(myMatriz[pi-i-1][pj-j], myMatriz[pi-i][pj-j-1]);
+                if (myMatriz[pi-i-1][pj-j-1] > m){
+                    myMatriz[pi-i][pj-j]=m+1;
+                    printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
                 }
                 else{
                     if(str1[pi-1]==str2[pj-1]){
-                        myMatriz[pi][pj]=myMatriz[pi-1][pj-1];
+                        myMatriz[pi-i][pj-j]=myMatriz[pi-i-1][pj-j-1];
+                        printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
                     }
                     else{
-                        myMatriz[pi][pj]=myMatriz[pi-1][pj-1]+1;
+                        myMatriz[pi-i][pj-j]=myMatriz[pi-i-1][pj-j-1]+1;
+                        printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
                     }
                 }
             }
@@ -181,6 +155,6 @@ int algoritmo3(char *str1, char *str2){
 }
 
 int main(int argc, char *argv[]){
-    printf("algoritmo3: %i\n", algoritmo3("ananas","banana"));
+    printf("algoritmo3: %i\n", algoritmo3("xymog","mogul"));
     return 0;
 }
