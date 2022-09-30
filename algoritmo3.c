@@ -154,7 +154,28 @@ int algoritmo3(char *str1, char *str2){
     return result;
 }
 
+void TestComprobar(int expected, int got, int nTest){
+       if (got != expected){
+        fprintf(stderr, "Expected %i, got %i\n", expected, got);
+    }
+    else fprintf(stdout,"Test %i pasado\n", nTest);
+}
+
 int main(int argc, char *argv[]){
     printf("algoritmo3: %i\n", algoritmo3("xymog","mogul"));
+
+    int valor1 = algoritmo3("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
+    int valor2 = algoritmo3("banana", "ananas"); //deberia ser 2
+    int valor3 = algoritmo3("francoso", "francoso"); // deberia ser 0
+    int valor4 = algoritmo3("abcfdef","abcgdef"); // deberia ser 1
+    int valor5 = algoritmo3("111222333", "111444333"); // deberia ser 3
+    int valor6 = algoritmo3("abcfdefghijk","abcdefghijkl"); // deberia ser 2
+
+    TestComprobar(4, valor1, 1);
+    TestComprobar(2, valor2, 2);
+    TestComprobar(0, valor3, 3);
+    TestComprobar(1, valor4, 4);
+    TestComprobar(3, valor5, 5);
+    TestComprobar(2, valor6, 6);
     return 0;
 }

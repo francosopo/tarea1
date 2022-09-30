@@ -77,6 +77,7 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
     }
     //printf("\n---------------------------------------------------\n");
     free(str1_copy);
+    //printf("%s\n", *str1_copy);
     free(str2_copy);
     return arr1[0];
 }
