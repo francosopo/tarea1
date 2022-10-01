@@ -3,9 +3,9 @@
 //#include "sys\timeb.h"
 #include <time.h>
 #include <errno.h>
-//#include "algoritmo1.c"
+#include "algoritmo1.c"
 //#include "algoritmo2a.c"
-#include "algoritmo3.c"
+//#include "algoritmo3.c"
 
 #define tamanho 8192
 #define cantidad 1000
@@ -104,7 +104,7 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     double stats[cantidad/2]; // para guardar los tiempos
 
     //se llenan los buffers
-    for (int i = 0; i < cantidad/2; i++){
+    for (long i = 0; i < cantidad/2; i++){
         llenar_buff(buf1[i], in);
         llenar_buff(buf2[i], in);
         if(i == cantidad/2 -1){
@@ -128,8 +128,8 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
  * 
 */
 int main(){
-    //promedioExp(&hacerExperimento, &obtenerValor, 1);
+    promedioExp(&hacerExperimento, &obtenerValor, 1);
     //promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);/**/
-    promedioExp(&hacerExperimento,&algoritmo3,3);
+    //promedioExp(&hacerExperimento,&algoritmo3,3);
     return 0;    
 }

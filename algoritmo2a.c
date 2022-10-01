@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-int minimo(int *arr, int len){
-    int m = arr[0];
-    for(int i = 1; i < len; i++){
+long minimo(long *arr, long len){
+    long m = arr[0];
+    for(long i = 1; i < len; i++){
         if(arr[i]< m){
             m = arr[i];
         }
@@ -12,8 +12,8 @@ int minimo(int *arr, int len){
     return m;
 }
 
-int calcular_w(int *arr,int arr_len, char a, char b){
-    int m = minimo(arr, arr_len);
+long calcular_w(long *arr,long arr_len, char a, char b){
+    long m = minimo(arr, arr_len);
     if( a == b) return m;
     else return m + 1;
     /*if(m < arr[0]){
@@ -24,23 +24,23 @@ int calcular_w(int *arr,int arr_len, char a, char b){
     }*/
 }
 
-int obtenerValor2(char *str1, char *str2, int i, int j, int *buf){
+long obtenerValor2(char *str1, char *str2, long i, long j, long *buf){
     if(i == 0) return j;
     else if(j == 0) return i;
     else{
-    	int x = obtenerValor2(str1, str2, i-1, j-1, buf);
-    	int y = obtenerValor2(str1, str2, i-1, j, buf);
-    	int z = obtenerValor2(str1, str2, i, j-1, buf);
-    	//int buf[3] = {x,y,z};
+    	long x = obtenerValor2(str1, str2, i-1, j-1, buf);
+    	long y = obtenerValor2(str1, str2, i-1, j, buf);
+    	long z = obtenerValor2(str1, str2, i, j-1, buf);
+    	//long buf[3] = {x,y,z};
         buf[0] = x;
         buf[1] = y;
         buf[2] = z;
-    	int w = calcular_w(buf, 3, str1[i], str2[j]);
+    	long w = calcular_w(buf, 3, str1[i], str2[j]);
     	return w;
     } 
 }
 
-int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
+long llenarArreglos(long *arr1, long *arr2, long arr_len, char *str1, char *str2){
     char *str1_copy = calloc(arr_len, sizeof(char));
     char *str2_copy = calloc(arr_len, sizeof(char));
 
@@ -54,15 +54,15 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
 
     strcpy(str1_copy, str1);
     strcpy(str2_copy, str2);
-    for (int i = 0; i < arr_len; i++){
+    for (long i = 0; i < arr_len; i++){
         //caso base
         if(i == 0){
-            int buf[3] = {arr1[0], arr1[1], arr2[1]};
+            long buf[3] = {arr1[0], arr1[1], arr2[1]};
             arr1[i] = calcular_w(buf, 3, *str1_copy, *str2_copy);
             str1_copy++;
             //str2_copy++;
         }else if(*str1 == '\0'){
-        	int ret = arr1[0];
+        	long ret = arr1[0];
         	str1_copy = str1_copy - i;
         	free(str1_copy);
         	free(str2_copy);
@@ -70,7 +70,7 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
         }
         else{//caso iterativo
             //printf("%s, %s\n", str1_copy, str2_copy);
-            int buf[3] = {arr1[i - 1], arr1[i], arr1[i + 1]};
+            long buf[3] = {arr1[i - 1], arr1[i], arr1[i + 1]};
         
             arr1[i] = calcular_w(buf, 3, *str1_copy, *str2_copy);
             str1_copy++;
@@ -85,15 +85,15 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
     return arr1[0];
 }
 
-int obtenerValorv2(char *str1, char *str2, int *valoresX, int *valoresY){
-    int str_len = strlen(str1);
+long obtenerValorv2(char *str1, char *str2, long *valoresX, long *valoresY){
+    long str_len = strlen(str1);
     
     //inicializando los arreglos
-    for (int i = 0; i < str_len + 1; i++){
+    for (long i = 0; i < str_len + 1; i++){
         valoresX[i] = valoresY[i] = i;
     }
 
-    for(int i = 0; i < str_len; i++){
+    for(long i = 0; i < str_len; i++){
         llenarArreglos(valoresX, valoresY, str_len - i + 1, str1 + i, str2 + i);
         valoresY[0] = valoresX[0];
         //printf("Columna %i completa\n", i);
@@ -101,43 +101,43 @@ int obtenerValorv2(char *str1, char *str2, int *valoresX, int *valoresY){
         //printf("Fila %i completa\n", i);
         //printf("Aquii %i", i);
     }
-    int res = valoresX[0];
+    long res = valoresX[0];
     //printf("res: %i\n", res);
     return res;
 }
 
 
-int obtenerValorAlg2(char *str1, char *str2){
-	int str_len = strlen(str1) + 1;
-    //int buf[3];
-    int *valoresX = calloc(str_len, sizeof(int));
+long obtenerValorAlg2(char *str1, char *str2){
+	long str_len = strlen(str1) + 1;
+    //long buf[3];
+    long *valoresX = calloc(str_len, sizeof(long));
     if(valoresX == NULL){
         perror("calloc 1");
     }
-    int *valoresY = calloc(str_len, sizeof(int));
+    long *valoresY = calloc(str_len, sizeof(long));
     if (valoresY == NULL){
         perror("calloc 2");
     }
-    int res = obtenerValorv2(str1, str2, valoresX, valoresY);
+    long res = obtenerValorv2(str1, str2, valoresX, valoresY);
     free(valoresX); free(valoresY);
     return res;
 }
 
-void TestComprobar(int expected, int got, int nTest){
+void TestComprobar(long expected, long got, long nTest){
        if (got != expected){
         fprintf(stderr, "Expected %i, got %i\n", expected, got);
     }
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-/*int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
     printf("Holi\n");
-    int valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
-    int valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
-    int valor3 = obtenerValorAlg2("francoso", "francoso"); // deberia ser 0
-    int valor4 = obtenerValorAlg2("abcfdef","abcgdef"); // deberia ser 1
-    int valor5 = obtenerValorAlg2("111222333", "111444333"); // deberia ser 3
-    int valor6 = obtenerValorAlg2("abcfdefghijk","abcdefghijkl"); // deberia ser 2
+    long valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
+    long valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
+    long valor3 = obtenerValorAlg2("francoso", "francoso"); // deberia ser 0
+    long valor4 = obtenerValorAlg2("abcfdef","abcgdef"); // deberia ser 1
+    long valor5 = obtenerValorAlg2("111222333", "111444333"); // deberia ser 3
+    long valor6 = obtenerValorAlg2("abcfdefghijk","abcdefghijkl"); // deberia ser 2
 
     TestComprobar(4, valor1, 1);
     TestComprobar(2, valor2, 2);
@@ -145,4 +145,4 @@ void TestComprobar(int expected, int got, int nTest){
     TestComprobar(1, valor4, 4);
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
-}*/
+}
