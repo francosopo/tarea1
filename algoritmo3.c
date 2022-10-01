@@ -92,7 +92,7 @@ int algoritmo3(char *str1, char *str2){
     int j = 1;
     //tengo que, dado que los ints son de 32 bits, entonces puedo guardar en memoria cache 64000 ints
     //esto implica que maximo puedo utilizar x=252.222..., o aproximando x=250.
-    int x=250;
+    int x=125;
     //la iteración termina al colocar j e i en el tamaño del arreglo,
     while(i!=tamano_del_arreglo && j!=tamano_del_arreglo){
         int mi, mj;
