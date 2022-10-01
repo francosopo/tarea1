@@ -45,16 +45,15 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
     char *str2_copy = calloc(arr_len, sizeof(char));
 
     if(str1_copy == NULL){
-        perror("calloc");
+        perror("calloc 3");
     }
 
     if(str2_copy == NULL){
-        perror("calloc");
+        perror("calloc 4");
     }
 
     strcpy(str1_copy, str1);
     strcpy(str2_copy, str2);
-
     for (int i = 0; i < arr_len; i++){
         //caso base
         if(i == 0){
@@ -63,7 +62,11 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
             str1_copy++;
             //str2_copy++;
         }else if(*str1 == '\0'){
-            return arr1[0];
+        	int ret = arr1[0];
+        	str1_copy = str1_copy - i;
+        	free(str1_copy);
+        	free(str2_copy);
+        	return ret;
         }
         else{//caso iterativo
             //printf("%s, %s\n", str1_copy, str2_copy);
@@ -76,7 +79,7 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
         //printf("|%i|", arr1[i]);
     }
     //printf("\n---------------------------------------------------\n");
-    free(str1_copy);
+    free(str1_copy - arr_len);
     //printf("%s\n", *str1_copy);
     free(str2_copy);
     return arr1[0];
@@ -109,11 +112,11 @@ int obtenerValorAlg2(char *str1, char *str2){
     //int buf[3];
     int *valoresX = calloc(str_len, sizeof(int));
     if(valoresX == NULL){
-        perror("calloc");
+        perror("calloc 1");
     }
     int *valoresY = calloc(str_len, sizeof(int));
     if (valoresY == NULL){
-        perror("calloc");
+        perror("calloc 2");
     }
     int res = obtenerValorv2(str1, str2, valoresX, valoresY);
     free(valoresX); free(valoresY);
@@ -127,7 +130,7 @@ void TestComprobar(int expected, int got, int nTest){
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
     printf("Holi\n");
     int valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
     int valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
@@ -142,4 +145,4 @@ int main(int argc, char *argv[]){
     TestComprobar(1, valor4, 4);
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
-}
+}*/
