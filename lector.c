@@ -7,7 +7,7 @@
 //#include "algoritmo2a.c"
 //#include "algoritmo3.c"
 
-#define tamanho 128
+#define tamanho 32768
 #define cantidad 100
 
 /** 
@@ -18,7 +18,7 @@
  * @param string1 es un string de input
  * @param string2 es un string de input
 */
-typedef long long (*Algoritmo)(char *string1, char *string2);
+typedef int (*Algoritmo)(char *string1, char *string2);
 
 typedef void (*Experimento)(Algoritmo alg, char *str1, char *str2, double *stats);
 

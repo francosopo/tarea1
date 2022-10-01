@@ -108,7 +108,7 @@ int compararTamano( char * str1, char * str2){
  * @param str1 el string 1
  * @param str2 el string 2
 */
-long long obtenerValor(char *str1, char *str2){
+int obtenerValor(char *str1, char *str2){
     if(compararTamano(str1, str2) == 0){
         perror("Los strings no coinciden");
         return 0;
