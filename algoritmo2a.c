@@ -125,9 +125,9 @@ long long obtenerValorAlg2(char *str1, char *str2){
 
 void TestComprobar(long long expected, long long got, long long nTest){
        if (got != expected){
-        fprintf(stderr, "Expected %i, got %i\n", expected, got);
+        fprintf(stderr, "Expected %lli, got %lli\n", expected, got);
     }
-    else fprintf(stdout,"Test %i pasado\n", nTest);
+    else fprintf(stdout,"Test %lli pasado\n", nTest);
 }
 
 /*int main(int argc, char *argv[]){
