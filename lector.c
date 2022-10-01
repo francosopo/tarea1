@@ -6,7 +6,7 @@
 #include "algoritmo1.c"
 #include "algoritmo2a.c"
 
-#define tamanho 16
+#define tamanho 16384
 #define cantidad 1000
 
 /** 
