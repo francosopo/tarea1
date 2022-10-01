@@ -8,7 +8,7 @@
 //#include "algoritmo3.c"
 
 #define tamanho 32768
-#define cantidad 50
+#define cantidad 100
 
 /** 
  * Puntero Algoritmo
