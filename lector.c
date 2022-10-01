@@ -3,11 +3,11 @@
 //#include "sys\timeb.h"
 #include <time.h>
 #include <errno.h>
-#//include "algoritmo1.c"
-#include "algoritmo2a.c"
+#include "algoritmo1.c"
+//#include "algoritmo2a.c"
 //#include "algoritmo3.c"
 
-#define tamanho 32768
+#define tamanho 128
 #define cantidad 100
 
 /** 
@@ -128,8 +128,9 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
  * 
 */
 int main(){
-    //promedioExp(&hacerExperimento, &obtenerValor, 1);
-    promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);/**/
+    promedioExp(&hacerExperimento, &obtenerValor, 1);
+    //Algoritmo alg = &obtenerValorAlg2;
+    //promedioExp(&hacerExperimento, alg, 2);/**/
     //promedioExp(&hacerExperimento,&algoritmo3,3);
     return 0;    
 }

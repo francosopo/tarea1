@@ -108,7 +108,7 @@ int compararTamano( char * str1, char * str2){
  * @param str1 el string 1
  * @param str2 el string 2
 */
-int obtenerValor(char *str1, char *str2){
+long long obtenerValor(char *str1, char *str2){
     if(compararTamano(str1, str2) == 0){
         perror("Los strings no coinciden");
         return 0;
@@ -148,9 +148,27 @@ void completeMatrix(int **matrix, char *string1, char *string2){
     }
 }
 
-/*int main(int argc, char* argv[]){
-    //algoritmo 1 test   
-    printf("%i\n",obtenerValor("fanfarria", "industria"));
-    
-    return 0;
+
+void TestComprobar(long long expected, long long got, long long nTest){
+       if (got != expected){
+        fprintf(stderr, "Expected %lli, got %lli\n", expected, got);
+    }
+    else fprintf(stdout,"Test %lli pasado\n", nTest);
+}
+
+/*int main(){
+    printf("Holi\n");
+    long long valor1 = obtenerValor("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
+    long long valor2 = obtenerValor("banana", "ananas"); //deberia ser 2
+    long long valor3 = obtenerValor("francoso", "francoso"); // deberia ser 0
+    long long valor4 = obtenerValor("abcfdef","abcgdef"); // deberia ser 1
+    long long valor5 = obtenerValor("111222333", "111444333"); // deberia ser 3
+    long long valor6 = obtenerValor("abcfdefghijk","abcdefghijkl"); // deberia ser 2
+
+    TestComprobar(4, valor1, 1);
+    TestComprobar(2, valor2, 2);
+    TestComprobar(0, valor3, 3);
+    TestComprobar(1, valor4, 4);
+    TestComprobar(3, valor5, 5);
+    TestComprobar(2, valor6, 6);
 }*/
