@@ -54,7 +54,6 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
 
     strcpy(str1_copy, str1);
     strcpy(str2_copy, str2);
-
     for (int i = 0; i < arr_len; i++){
         //caso base
         if(i == 0){
@@ -63,7 +62,11 @@ int llenarArreglos(int *arr1, int *arr2, int arr_len, char *str1, char *str2){
             str1_copy++;
             //str2_copy++;
         }else if(*str1 == '\0'){
-            return arr1[0];
+        	int ret = arr1[0];
+        	str1_copy = str1_copy - i;
+        	free(str1_copy);
+        	free(str2_copy);
+        	return ret;
         }
         else{//caso iterativo
             //printf("%s, %s\n", str1_copy, str2_copy);

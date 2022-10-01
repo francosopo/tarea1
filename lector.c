@@ -3,10 +3,11 @@
 //#include "sys\timeb.h"
 #include <time.h>
 #include <errno.h>
-#include "algoritmo1.c"
-#include "algoritmo2a.c"
+//#include "algoritmo1.c"
+//#include "algoritmo2a.c"
+#include "algoritmo3.c"
 
-#define tamanho 4096
+#define tamanho 8192
 #define cantidad 1000
 
 /** 
@@ -81,9 +82,7 @@ void hacerExperimento(Algoritmo alg, char *string1, char *string2, double *time)
 }
 
 /**
- * Funcion promedioExp
- * 
- * Funcion que ejecuta el experimento uno asociado al algoritmo uno
+ * Funcion promedioExpobtenerValorAlg2
  * retiradas veces y calcula el promedio de los tiempos de ejecucion
  * 
  * @param exp el experimento que calcula una iteracion 
@@ -130,6 +129,7 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
 */
 int main(){
     //promedioExp(&hacerExperimento, &obtenerValor, 1);
-    promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);/**/
+    //promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);/**/
+    promedioExp(&hacerExperimento,&algoritmo3,3);
     return 0;    
 }

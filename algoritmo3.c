@@ -76,6 +76,12 @@ int algoritmo3(char *str1, char *str2){
     int *horizontales = malloc(sizeof(int)*(tamano_del_arreglo+1));
     int *verticales = malloc(sizeof(int)*(tamano_del_arreglo+1));
 
+    if(horizontales==NULL){
+        perror("malloc");
+    }
+    if(verticales==NULL){
+        perror("malloc");
+    }
     //genero el caso base
     for(int i = 0; i<tamano_del_arreglo+1;i++){
         horizontales[i]= i;
@@ -94,24 +100,24 @@ int algoritmo3(char *str1, char *str2){
             mi= tamano_del_arreglo;
         }
         else{
-            mi= i+x;
+            mi= i+x-1; 
         }
         if(j+x  > tamano_del_arreglo){
             mj=tamano_del_arreglo;
         }
         else{
-            mj=x+j;
+            mj=x+j-1;
         }
         int myMatriz[mi-i+1][mj-j+1];
         //relleno el substring1 y la fila 0 del la matriz en cache
         for(int k=i; k<=mi; k++){
             myMatriz[k-i][0] = verticales[k-1];
-            printf("myMatriz[%i][%i]=%i\n",k-i,0,myMatriz[k-i][0]);
+            //printf("myMatriz[%i][%i]=%i\n",k-i,0,myMatriz[k-i][0]);
         }
         //relleno la columna 0 y el substring 2
         for(int k =j; k<= mj; k++){
             myMatriz[0][k-j] = horizontales[k-1];
-            printf("myMatriz[%i][%i]=%i\n",0,k-j,myMatriz[0][k-j]);
+            //printf("myMatriz[%i][%i]=%i\n",0,k-j,myMatriz[0][k-j]);
         }
         //hago el algoritmo en la submatriz:
         for(int pi = i+1; pi<=mi;pi++){
@@ -119,16 +125,16 @@ int algoritmo3(char *str1, char *str2){
                 int m= min(myMatriz[pi-i-1][pj-j], myMatriz[pi-i][pj-j-1]);
                 if (myMatriz[pi-i-1][pj-j-1] > m){
                     myMatriz[pi-i][pj-j]=m+1;
-                    printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
+                    //printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
                 }
                 else{
                     if(str1[pi-1]==str2[pj-1]){
                         myMatriz[pi-i][pj-j]=myMatriz[pi-i-1][pj-j-1];
-                        printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
+                        //printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
                     }
                     else{
                         myMatriz[pi-i][pj-j]=myMatriz[pi-i-1][pj-j-1]+1;
-                        printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
+                        //printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
                     }
                 }
             }
@@ -145,7 +151,7 @@ int algoritmo3(char *str1, char *str2){
         //si ya estoy pegado a la derecha, pero aun no alcanzo la esquina, voy para abajo;
         if(i==tamano_del_arreglo && j !=tamano_del_arreglo){
             j=mj;
-            i=0;
+            i=1;
         }
     }
     int result= horizontales[tamano_del_arreglo];
@@ -161,7 +167,7 @@ void TestComprobar(int expected, int got, int nTest){
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
     printf("algoritmo3: %i\n", algoritmo3("xymog","mogul"));
 
     int valor1 = algoritmo3("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
@@ -178,4 +184,4 @@ int main(int argc, char *argv[]){
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
     return 0;
-}
+}*/
