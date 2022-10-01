@@ -24,9 +24,15 @@ void completeMatrix(int **matrix, char *string1, char *string2);
  * 
 */
 int **construirMatriz(int n){
-    int **miMatriz = malloc(sizeof(int*) * (n + 1));
+    int **miMatriz = calloc(sizeof(int*) , (n + 1));
+    if(miMatriz == NULL){
+        perror("construirMatriz");
+    }
     for(int i = 0; i < n + 1; i++){
-        miMatriz[i] = malloc(sizeof(int) * (n + 1));
+        miMatriz[i] = calloc(sizeof(int) , (n + 1));
+        if(miMatriz[i] == NULL){
+            perror("construirMatriz index");
+        }
     }
 
     for (int i = 0; i < n + 1; i++){
