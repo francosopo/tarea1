@@ -7,8 +7,8 @@
 //#include "algoritmo2a.c"
 #include "algoritmo3.c"
 
-#define tamanho 8192
-#define cantidad 1000
+#define tamanho 32768
+#define cantidad 100
 
 /** 
  * Puntero Algoritmo
