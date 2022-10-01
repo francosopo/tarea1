@@ -98,8 +98,8 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     // abriendo el archivo de palabras
     FILE*in = fopen(destino,"r");
 
-    char buf1[cantidad/2][tamanho];
-    char buf2[cantidad/2][tamanho];
+    char buf1[cantidad/2][tamanho + 1];
+    char buf2[cantidad/2][tamanho + 1];
 
     double stats[cantidad/2]; // para guardar los tiempos
 
