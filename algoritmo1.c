@@ -54,7 +54,7 @@ int **construirMatriz(int n){
  * @param matriz la matriz
  * @param n el tamaño de una fila de la matriz
 */
-void destruirMatriz(int **matriz, int n){
+void destruirMatriz1(int **matriz, int n){
     for (int i = 0; i < n + 1; i++){
         free(matriz[i]);
     }
@@ -62,14 +62,14 @@ void destruirMatriz(int **matriz, int n){
 }
 
 /**
- * Funcion min
+ * Funcion min1
  * 
- * Entrega el minimo de dos valores
+ * Entrega el min1imo de dos valores
  * 
  * @param val1 el primer valor
  * @param val2 el segundo valor
 */
-int min(int val1, int val2){
+int min1(int val1, int val2){
     if (val1 < val2){ 
         return val1;
     }
@@ -94,7 +94,7 @@ int min(int val1, int val2){
  * @param str1 el string 1
  * @param str2 el string 2
 */
-int compararTamano( char * str1, char * str2){
+/*int compararTamano( char * str1, char * str2){
     int len_str1 = strlen(str1);
     int len_str2 = strlen(str2);
     if(len_str1 != len_str2){
@@ -102,7 +102,7 @@ int compararTamano( char * str1, char * str2){
         return 0; // los string no tienen el mismo tamaño FALSE
     }
     return 1; // los string tienen el mismo tamaño TRUE
-}
+}*/
 
 
 /**
@@ -124,7 +124,7 @@ int obtenerValor(char *str1, char *str2){
         int **miMatriz = construirMatriz(str_len);
         completeMatrix(miMatriz,str1,str2);
         int miValor=miMatriz[str_len][str_len];
-        destruirMatriz(miMatriz, str_len);
+        destruirMatriz1(miMatriz, str_len);
         return miValor;
     }
 }
@@ -136,7 +136,7 @@ void completeMatrix(int **matrix, char *string1, char *string2){
     int str_len = strlen(string1);
     for(int i=1 ;i<str_len+1;i++){
         for(int j=1 ; j<str_len+1;j++){
-            int m = min(matrix[i-1][j], matrix[i][j-1]);
+            int m = min1(matrix[i-1][j], matrix[i][j-1]);
             if (m < matrix[i-1][j-1]){
                 matrix[i][j] =  m +1;
             }
@@ -155,14 +155,14 @@ void completeMatrix(int **matrix, char *string1, char *string2){
 }
 
 
-void TestComprobar(long long expected, long long got, long long nTest){
+/*void TestComprobar(long long expected, long long got, long long nTest){
        if (got != expected){
         fprintf(stderr, "Expected %lli, got %lli\n", expected, got);
     }
     else fprintf(stdout,"Test %lli pasado\n", nTest);
 }
 
-/*int main(){
+int main(){
     printf("Holi\n");
     long long valor1 = obtenerValor("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
     long long valor2 = obtenerValor("banana", "ananas"); //deberia ser 2
