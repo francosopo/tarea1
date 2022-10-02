@@ -181,7 +181,6 @@ int compararTamano( char * str1, char * str2){
  * 
 */
 int main(){
-    printf("\nTiempo Total estimado en un AMD A9-9425\n con 2 NUCLEOS en DEBIAN 11 64 BITS\ncon gcc para 64 bits:\n17min\n ");
     // HACIENDO LAS PRUEBAS DE CADA ALGORITMO
 
     // PRUEBAS ALGORITMO1
@@ -245,6 +244,7 @@ int main(){
     }
     // GENERANDO ESTADISTICAS
     printf("\n-----GENERANDO ESTADISTICAS-----\n");
+    printf("\nTiempo Total estimado en un AMD A9-9425\n con 2 NUCLEOS en DEBIAN 11 64 BITS\ncon gcc para 64 bits:\n17min\n ");
     for (int i = 0; i < 13; i++){
         promedioExp(&hacerExperimento,(long long (*)(char*, char*)) &obtenerValor, 1,tamanho[i], cantidad);
         Algoritmo alg = &obtenerValorAlg2;
