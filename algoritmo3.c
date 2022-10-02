@@ -8,34 +8,17 @@
 
 
 
-/**
- * Funcion compararTamano
- * 
- * Compara el tamaño de dos string, retornando 0 si son distintos
- * y 1 si son iguales
- * 
- * @param str1 el string 1
- * @param str2 el string 2
-*/
-int compararTamano( char * str1, char * str2){
-    int len_str1 = strlen(str1);
-    int len_str2 = strlen(str2);
-    if(len_str1 != len_str2){
-        printf("tamanho str1: %i, str2: %i", len_str1, len_str2);
-        return 0; // los string no tienen el mismo tamaño FALSE
-    }
-    return 1; // los string tienen el mismo tamaño TRUE
-}
+
 
 
 /**
- * Funcion destruirMatriz
+ * Funcion destruirMatriz3
  * 
  * Libera la memoria alocada para @param matriz
  * 
  * @param matriz la matriz
 */
-void destruirMatriz(int **matriz, int tamanho){
+void destruirMatriz3(int **matriz, int tamanho){
     for (int i = 0; i < tamanho; i++){
         free(matriz[i]);
     }
@@ -43,14 +26,14 @@ void destruirMatriz(int **matriz, int tamanho){
 }
 
 /**
- * Funcion min
+ * Funcion min3
  * 
- * Entrega el minimo de dos valores
+ * Entrega el min3imo de dos valores
  * 
  * @param val1 el primer valor
  * @param val2 el segundo valor
 */
-int min(int val1, int val2){
+int min3(int val1, int val2){
     if (val1 < val2){ 
         return val1;
     }
@@ -93,7 +76,7 @@ int algoritmo3(char *str1, char *str2){
     //tengo que, dado que los ints son de 32 bits, entonces puedo guardar en memoria cache 64000 ints
     //esto implica que maximo puedo utilizar x=252.222..., o hago x=200.
     int x=200;
-    //la iteración termina al colocar j e i en el tamaño del arreglo,
+    //la iteración termin3a al colocar j e i en el tamaño del arreglo,
     while(i!=tamano_del_arreglo && j!=tamano_del_arreglo){
         int mi, mj;
         if (i+x > tamano_del_arreglo){
@@ -122,7 +105,7 @@ int algoritmo3(char *str1, char *str2){
         //hago el algoritmo en la submatriz:
         for(int pi = i+1; pi<=mi;pi++){
             for(int pj=j+1; pj<=mj; pj++){
-                int m= min(myMatriz[pi-i-1][pj-j], myMatriz[pi-i][pj-j-1]);
+                int m= min3(myMatriz[pi-i-1][pj-j], myMatriz[pi-i][pj-j-1]);
                 if (myMatriz[pi-i-1][pj-j-1] > m){
                     myMatriz[pi-i][pj-j]=m+1;
                     //printf("myMatriz[%i][%i]=%i\n",pi-i,pj-j,myMatriz[pi-i][pj-j]);
@@ -160,14 +143,14 @@ int algoritmo3(char *str1, char *str2){
     return result;
 }
 
-void TestComprobar(int expected, int got, int nTest){
+/*void TestComprobar(int expected, int got, int nTest){
        if (got != expected){
         fprintf(stderr, "Expected %i, got %i\n", expected, got);
     }
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-/*int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
     printf("algoritmo3: %i\n", algoritmo3("xymog","mogul"));
 
     int valor1 = algoritmo3("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4

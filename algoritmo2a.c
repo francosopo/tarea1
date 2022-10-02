@@ -123,14 +123,14 @@ long long obtenerValorAlg2(char *str1, char *str2){
     return res;
 }
 
-void TestComprobar(long long expected, long long got, long long nTest){
+/*void TestComprobar(long long expected, long long got, long long nTest){
        if (got != expected){
         fprintf(stderr, "Expected %lli, got %lli\n", expected, got);
     }
     else fprintf(stdout,"Test %lli pasado\n", nTest);
 }
 
-/*int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
     printf("Holi\n");
     long long valor1 = obtenerValorAlg2("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
     long long valor2 = obtenerValorAlg2("banana", "ananas"); //deberia ser 2
@@ -145,4 +145,5 @@ void TestComprobar(long long expected, long long got, long long nTest){
     TestComprobar(1, valor4, 4);
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
-}*/
+}
+*/
