@@ -145,4 +145,5 @@ void TestComprobar(long long expected, long long got, long long nTest){
     TestComprobar(1, valor4, 4);
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
-}*/
+}
+*/

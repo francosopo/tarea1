@@ -167,7 +167,7 @@ void TestComprobar(int expected, int got, int nTest){
     else fprintf(stdout,"Test %i pasado\n", nTest);
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
     printf("algoritmo3: %i\n", algoritmo3("xymog","mogul"));
 
     int valor1 = algoritmo3("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
@@ -184,4 +184,4 @@ int main(int argc, char *argv[]){
     TestComprobar(3, valor5, 5);
     TestComprobar(2, valor6, 6);
     return 0;
-}
+}*/
