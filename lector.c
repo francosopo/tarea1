@@ -98,8 +98,31 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     // abriendo el archivo de palabras
     FILE*in = fopen(destino,"r");
 
-    char buf1[cantidad/2][tamanho + 1];
-    char buf2[cantidad/2][tamanho + 1];
+    //char buf1[cantidad/2][tamanho + 1];
+    //char buf2[cantidad/2][tamanho + 1];
+
+    char **buf1 = calloc(cantidad/2, sizeof(char*));
+
+    if(buf1 == NULL){
+        perror("calloc buf1");
+    }
+    for (int i = 0; i < cantidad/2; i++){
+        buf1[i] = calloc(tamanho, sizeof(char));    
+        if(buf1[i] == NULL){
+            fprintf(stderr, "perror buf1: %i", i);
+        }
+    }
+    char **buf2 = calloc(cantidad/2, sizeof(char*));
+    if(buf2 == NULL){
+        perror("calloc buf2");
+    }
+    for (int i = 0; i < cantidad/2; i++){
+        buf2[i] = calloc(tamanho, sizeof(char)); 
+        if(buf2[i] == NULL){
+            fprintf(stderr, "perror buf2: %i", i);
+        }   
+    }
+
 
     double stats[cantidad/2]; // para guardar los tiempos
 
@@ -115,10 +138,19 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     }
     double avg = average(stats, (double) cantidad/2);
     // nalg, cantidad, largo, tiempo promedio
-    FILE *statsFile = fopen("stats.csv", "a+");
+    FILE *statsFile = fopen("stats2.csv", "a+");
     fprintf(statsFile,"%i,%i,%i,%f\n",numeroAlg, cantidad, tamanho, avg);
     fclose(in);
     fclose(statsFile);
+    for (int i = 0; i < cantidad/2; i++){
+        free(buf1[i]);
+    }
+    free(buf1);
+
+    for (int i = 0; i < cantidad/2; i++){
+        free(buf2[i]);
+    }
+    free(buf2);
 }
 
 /**
