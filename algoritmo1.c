@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,9 +25,15 @@ void completeMatrix(int **matrix, char *string1, char *string2);
  * 
 */
 int **construirMatriz(int n){
-    int **miMatriz = malloc(sizeof(int*) * (n + 1));
+    int **miMatriz = calloc(sizeof(int*) , (n + 1));
+    if(miMatriz == NULL){
+        perror("construirMatriz");
+    }
     for(int i = 0; i < n + 1; i++){
-        miMatriz[i] = malloc(sizeof(int) * (n + 1));
+        miMatriz[i] = calloc(sizeof(int) , (n + 1));
+        if(miMatriz[i] == NULL){
+            perror("construirMatriz index");
+        }
     }
 
     for (int i = 0; i < n + 1; i++){
@@ -148,9 +155,27 @@ void completeMatrix(int **matrix, char *string1, char *string2){
     }
 }
 
-/*int main(int argc, char* argv[]){
-    //algoritmo 1 test   
-    printf("%i\n",obtenerValor("fanfarria", "industria"));
-    
-    return 0;
+
+void TestComprobar(long long expected, long long got, long long nTest){
+       if (got != expected){
+        fprintf(stderr, "Expected %lli, got %lli\n", expected, got);
+    }
+    else fprintf(stdout,"Test %lli pasado\n", nTest);
+}
+
+/*int main(){
+    printf("Holi\n");
+    long long valor1 = obtenerValor("xxabcdefghijk", "abcdefghijkyy"); // deberia ser 4
+    long long valor2 = obtenerValor("banana", "ananas"); //deberia ser 2
+    long long valor3 = obtenerValor("francoso", "francoso"); // deberia ser 0
+    long long valor4 = obtenerValor("abcfdef","abcgdef"); // deberia ser 1
+    long long valor5 = obtenerValor("111222333", "111444333"); // deberia ser 3
+    long long valor6 = obtenerValor("abcfdefghijk","abcdefghijkl"); // deberia ser 2
+
+    TestComprobar(4, valor1, 1);
+    TestComprobar(2, valor2, 2);
+    TestComprobar(0, valor3, 3);
+    TestComprobar(1, valor4, 4);
+    TestComprobar(3, valor5, 5);
+    TestComprobar(2, valor6, 6);
 }*/

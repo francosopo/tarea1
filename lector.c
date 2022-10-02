@@ -4,10 +4,11 @@
 #include <time.h>
 #include <errno.h>
 #include "algoritmo1.c"
-#include "algoritmo2a.c"
+//#include "algoritmo2a.c"
+//#include "algoritmo3.c"
 
 #define tamanho 16384
-#define cantidad 1000
+#define cantidad 100
 
 /** 
  * Puntero Algoritmo
@@ -17,7 +18,7 @@
  * @param string1 es un string de input
  * @param string2 es un string de input
 */
-typedef int (*Algoritmo)(char *string1, char *string2);
+typedef long long (*Algoritmo)(char *string1, char *string2);
 
 typedef void (*Experimento)(Algoritmo alg, char *str1, char *str2, double *stats);
 
@@ -81,9 +82,7 @@ void hacerExperimento(Algoritmo alg, char *string1, char *string2, double *time)
 }
 
 /**
- * Funcion promedioExp
- * 
- * Funcion que ejecuta el experimento uno asociado al algoritmo uno
+ * Funcion promedioExpobtenerValorAlg2
  * retiradas veces y calcula el promedio de los tiempos de ejecucion
  * 
  * @param exp el experimento que calcula una iteracion 
@@ -99,13 +98,35 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     // abriendo el archivo de palabras
     FILE*in = fopen(destino,"r");
 
-    char buf1[cantidad/2][tamanho];
-    char buf2[cantidad/2][tamanho];
+    //char buf1[cantidad/2][tamanho + 1];
+    //char buf2[cantidad/2][tamanho + 1];
+    char **buf1 = calloc(cantidad/2, sizeof(char*));
+    if (buf1 == NULL){
+        perror("buf1");
+    }
+
+    for(int i = 0; i < cantidad/2; i++){
+        buf1[i] = calloc(tamanho, sizeof(char));
+        if(buf1[i] == NULL){
+            perror("buf1[i]");
+        }
+    }
+
+    char **buf2 = calloc(cantidad/2, sizeof(char*));
+    if(buf2 == NULL){
+        perror("buf2");
+    }
+    for(int i = 0; i < cantidad/2; i++){
+        buf2[i] = calloc(tamanho, sizeof(char));
+        if(buf2 == NULL){
+            perror("buf2[i]");
+        }
+    }
 
     double stats[cantidad/2]; // para guardar los tiempos
 
     //se llenan los buffers
-    for (int i = 0; i < cantidad/2; i++){
+    for (long i = 0; i < cantidad/2; i++){
         llenar_buff(buf1[i], in);
         llenar_buff(buf2[i], in);
         if(i == cantidad/2 -1){
@@ -120,6 +141,14 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
     fprintf(statsFile,"%i,%i,%i,%f\n",numeroAlg, cantidad, tamanho, avg);
     fclose(in);
     fclose(statsFile);
+
+    for(int i = 0; i< cantidad/2; i++){
+        free(buf1[i]);
+        free(buf2[i]);
+    }
+
+    free(buf1);
+    free(buf2);
 }
 
 /**
@@ -129,7 +158,9 @@ void promedioExp(Experimento exp, Algoritmo alg, int numeroAlg){
  * 
 */
 int main(){
-    //promedioExp(&hacerExperimento, &obtenerValor, 1);
-    promedioExp(&hacerExperimento, &obtenerValorAlg2, 2);/**/
+    promedioExp(&hacerExperimento,(long long (*)(char*, char*)) &obtenerValor, 1);
+    //Algoritmo alg = &obtenerValorAlg2;
+    //promedioExp(&hacerExperimento, alg, 2);/**/
+    //promedioExp(&hacerExperimento,(long long (*)(char*, char*))&algoritmo3,3);
     return 0;    
 }
